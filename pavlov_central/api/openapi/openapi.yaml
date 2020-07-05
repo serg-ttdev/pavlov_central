@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Pavlov Central API
+  description: pavlov-central api
+  contact:
+    email: s.yermolaev@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 0.1.0
+servers:
+  - url: /
+    description: Localhost pavlov-central API
+tags:
+  - name: servers
+    description: Gamve servers
+  - name: players
+    description: Game players
+  - name: ban-list
+    description: Banned player list
+  - name: moderators
+    description: Game moderators
+
+paths:
+  /servers:
+    get:
+      tags:
+        - servers
+      summary: Get server list
+      description: |
+        Get game server list
+      x-openapi-router-controller: pavlov_central.api.controllers.server_api
+      operationId: handle_get_server_list
+      responses:
+        '200':
+          description: return server list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Servers'
+    post:
+      tags:
+        - servers
+      summary: Create new server
+      x-openapi-router-controller: pavlov_central.api.controllers.server_api
+      operationId: handle_add_server
+      responses:
+        '200':
+          description: Created server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '409':
+          description: Server already exists
+      requestBody:
+        $ref: '#/components/requestBodies/Server'
+  /servers/{server_name}:
+    get:
+      tags:
+        - servers
+      summary: Get server information
+      description: |
+        Get game server information
+      x-openapi-router-controller: pavlov_central.api.controllers.server_api
+      operationId: handle_get_server
+      parameters:
+        - $ref: '#/components/parameters/server_name'
+      responses:
+        '200':
+          description: return server information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '404':
+          description: server not found
+    put:
+      tags:
+        - servers
+      summary: Update server
+      x-openapi-router-controller: pavlov_central.api.controllers.server_api
+      operationId: handle_update_server
+      parameters:
+        - $ref: '#/components/parameters/server_name'
+      responses:
+        '204':
+          description: server was updated
+        '400':
+          description: server not found
+      requestBody:
+        $ref: '#/components/requestBodies/Server'
+    delete:
+      tags:
+        - servers
+      summary: Update server
+      x-openapi-router-controller: pavlov_central.api.controllers.server_api
+      operationId: handle_delete_server
+      parameters:
+        - $ref: '#/components/parameters/server_name'
+      responses:
+        '204':
+          description: server deleted
+        '400':
+          description: bad input parameter
+        '404':
+          description: server not found
+
+components:
+  parameters:
+    server_name:
+      name: server_name
+      in: path
+      description: server name
+      required: true
+      schema:
+        type: string
+
+  requestBodies:
+    Server:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Server'
+
+  schemas:
+    Server:
+      type: object
+      properties:
+        name:
+          type: string
+        ip:
+          type: string
+      required:
+        - name
+        - ip
+    Servers:
+      type: array
+      items:
+        $ref: '#/components/schemas/Server'

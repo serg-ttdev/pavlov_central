@@ -1,0 +1,10 @@
+psycopg2
+peewee
+peewee_migrate @ git+https://github.com/RoseNimbus/peewee_migrate
+requests
+flask
+werkzeug
+connexion
+jsonschema
+jsonref
+jsondiff
