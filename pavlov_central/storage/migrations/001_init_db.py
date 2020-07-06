@@ -29,7 +29,7 @@ def migrate(migrator, database, fake=False, **kwargs):
     @migrator.create_model
     class Server(pw.Model):
         name = pw.TextField(primary_key=True)
-        ip = pw.IPField(index=True)
+        ip = pw.IPField()
 
         class Meta:
             table_name = "server"

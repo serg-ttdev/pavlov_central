@@ -1,12 +1,12 @@
 import peewee as pw
 from playhouse.postgres_ext import *
 
-ext_db = PostgresqlExtDatabase('pavlov_central', user='pavlov')
+DB = PostgresqlExtDatabase('central', user='pavlov', host='localhost', port=5432)
 
 
 class BaseModel(pw.Model):
     class Meta:
-        database = ext_db
+        database = DB
 
     @classmethod
     def get_database(cls):

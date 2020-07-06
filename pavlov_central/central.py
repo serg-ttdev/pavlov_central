@@ -6,16 +6,13 @@ from peewee_migrate.router import Router, load_models
 from peewee_migrate.auto import diff_many
 import pavlov_central.storage
 import pavlov_central.storage.models
-from pavlov_central.storage.models.base_model import ext_db
-from pavlov_central.api import encoder
+from pavlov_central.storage.models.base_model import DB
 
 
 def start_api():
-    app = connexion.App(__name__, specification_dir='./api/openapi/')
-    app.app.json_encoder = encoder.JSONEncoder
-    app.add_api('openapi.yaml',
-                arguments={'title': 'Pavlov Central API'},
-                pythonic_params=True)
+    app = connexion.FlaskApp(__name__, specification_dir='./api/openapi/')
+    app.app.config['JSON_SORT_KEYS'] = False
+    app.add_api('openapi.yaml')
     app.run(port=5000)
 
 
@@ -60,5 +57,5 @@ def run_db_migration(database):
 
 if __name__ == '__main__':
     init_logging()
-    run_db_migration(ext_db)
+    run_db_migration(DB)
     start_api()

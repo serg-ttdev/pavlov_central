@@ -5,7 +5,7 @@ from pavlov_central.storage.models.server import Server
 
 
 def handle_get_server_list():
-    return Server.select().dicts[:]
+    return Server.select().dicts()[:]
 
 
 def handle_get_server(server_name):
@@ -13,10 +13,13 @@ def handle_get_server(server_name):
     if server is None:
         return 'Server not found', 404
     else:
-        return server.serialize
+        return server
 
 
-def handle_add_server(server_props):
+def handle_add_server():
+    if not connexion.request.is_json:
+        return 'Request body empty or not valid json', 400
+    server_props = connexion.request.get_json()
     server_name = server_props.get('name')
     server = Server.get_server(server_name)
     if server is not None:
@@ -41,7 +44,6 @@ def handle_update_server(server_name):
 
 
 def handle_delete_server(server_name):
-    server = Server.get_server(server_name)
     if Server.delete_server(server_name):
         return NoContent, 204
     else:

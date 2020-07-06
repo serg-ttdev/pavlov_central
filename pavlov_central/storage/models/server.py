@@ -5,7 +5,7 @@ from pavlov_central.storage.models.base_model import BaseModel
 
 class Server(BaseModel):
     name = pw.TextField(primary_key=True)
-    ip = pw.TextField()
+    ip = pw.IPField()
 
     class Meta:
         table_name = 'server'

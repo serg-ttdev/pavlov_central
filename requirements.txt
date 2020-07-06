@@ -4,6 +4,7 @@ peewee_migrate @ git+https://github.com/RoseNimbus/peewee_migrate
 requests
 flask
 werkzeug
+connexion[swagger-ui]
 connexion
 jsonschema
 jsonref
