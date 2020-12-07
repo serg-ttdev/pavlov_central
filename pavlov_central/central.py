@@ -34,7 +34,7 @@ def run_db_migration(database):
         migrate_dir=db_migrations_dir,
         migrate_table='migration',
         logger=logging.getLogger(),
-        ignore=['basemodel', 'basedatamodel']
+        ignore=['basemodel', 'basedatamodel', 'frs5model', 'virtualmodel', 'baseftsmodel', 'ftsmodel', 'lsmtable']
     )
     print('Run migrations..')
 

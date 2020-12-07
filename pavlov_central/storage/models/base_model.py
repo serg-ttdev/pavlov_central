@@ -1,7 +1,13 @@
+import os
 import peewee as pw
-from playhouse.postgres_ext import *
+from playhouse.sqlite_ext import SqliteExtDatabase
 
-DB = PostgresqlExtDatabase('central', user='pavlov', host='localhost', port=5432)
+DB = SqliteExtDatabase(
+    os.path.expanduser('~/tmp/pavlov.db'),
+    pragmas=(
+        ('journal_mode', 'wal'),     # Use WAL-mode
+    )
+)
 
 
 class BaseModel(pw.Model):

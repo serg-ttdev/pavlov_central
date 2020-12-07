@@ -34,7 +34,7 @@ install:
 	@test -x "$(VIRTUAL_ENV)/bin/python3" || virtualenv --python=python3 --system-site-packages --quiet "$(VIRTUAL_ENV)"
 	@test -x "$(VIRTUAL_ENV)/bin/pip" || easy_install pip
 	@pip install --quiet --requirement=requirements.txt
-	@pip uninstall --yes devicebackend &>/dev/null || true
+	@pip uninstall --yes pavlov_central &>/dev/null || true
 	@pip install --quiet --no-deps --ignore-installed .
 
 reset:

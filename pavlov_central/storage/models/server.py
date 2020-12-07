@@ -33,7 +33,7 @@ class Server(BaseModel):
 
     @classmethod
     def add_server(cls, server_props):
-        Server.insert(server_props).execute()
+        cls.insert(server_props).execute()
         return server_props
 
     @classmethod

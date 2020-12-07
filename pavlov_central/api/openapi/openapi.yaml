@@ -86,7 +86,7 @@ paths:
       responses:
         '204':
           description: server was updated
-        '400':
+        '404':
           description: server not found
       requestBody:
         $ref: '#/components/requestBodies/Server'

@@ -5,7 +5,6 @@ requests
 flask
 werkzeug
 connexion[swagger-ui]
-connexion
 jsonschema
 jsonref
 jsondiff
