@@ -27,7 +27,9 @@ def init_logging():
 
 def run_db_migration(database):
     db_storage_dir = os.path.dirname(pavlov_central.storage.__file__)
+    print(f'db_storage_dir={db_storage_dir}')
     db_migrations_dir = os.path.join(db_storage_dir, 'migrations')
+    print(f'db_migrations_dir={db_migrations_dir}')
 
     router = Router(
         database,
@@ -42,10 +44,12 @@ def run_db_migration(database):
 
     # check migrations
     src_models = load_models(pavlov_central.storage.models)
+    print(f'src_models={src_models}')
     if router.ignore:
         src_models = [m for m in src_models if m.get_table_name() not in router.ignore]
 
     db_models = router.migrator.orm.values()
+    print(f'db_models={db_models}')
 
     diff_found = diff_many(src_models, db_models, router.migrator, reverse=False)
 

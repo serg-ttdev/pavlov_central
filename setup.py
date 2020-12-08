@@ -21,7 +21,9 @@ setup(
     packages=find_packages(exclude=['example', 'test']),
     install_requires=install_requires,
     package_data={
-        '': ['*.json']
+        '': ['*.json'],
+        'pavlov_central.api': ['openapi/*.yaml'],
+        'pavlov_central.storage': ['migrations/*'],
     },
     dependency_links=dependency_links
 )
