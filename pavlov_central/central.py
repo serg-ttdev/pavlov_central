@@ -5,7 +5,6 @@ from logging.handlers import RotatingFileHandler
 from peewee_migrate.router import Router, load_models
 from peewee_migrate.auto import diff_many
 import pavlov_central.storage
-import pavlov_central.storage.models
 from pavlov_central.storage.models.base_model import DB
 
 
@@ -43,7 +42,7 @@ def run_db_migration(database):
     router.run()
 
     # check migrations
-    src_models = load_models(pavlov_central.storage.models)
+    src_models = load_models('pavlov_central.storage.models')
     print(f'src_models={src_models}')
     if router.ignore:
         src_models = [m for m in src_models if m.get_table_name() not in router.ignore]
